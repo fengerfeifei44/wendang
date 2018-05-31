@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/inner.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/inner.js"></script>
+</head>
+<body>
+<h2>获得题目或者结论</h2>
+<p><strong>接口调用请求说明</strong></p>
+<pre>
+    <code ng-controller="yumCtrl">
+      https请求方式: POST
+      http://{{name}}/question/v1/question.do?access_Token=
+    </code>
+</pre>
+
+
+
+<p><strong>参数说明（表1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>是否必须</th>
+        <th>参数注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Access_Token</td>
+        <td>是</td>
+        <td>调用接口获取的token值</td>
+
+    </tr>
+    <tr>
+        <td>Abbr</td>
+        <td>是</td>
+        <td>问诊编号</td>
+
+    </tr>
+    <tr>
+        <td>Questions</td>
+        <td>是</td>
+        <td>Array格式用户选择的答题，Array包含如下参数（详见表1-1）</td>
+
+    </tr>
+    <tr>
+        <td>Key</td>
+        <td>是</td>
+        <td>Md5(abbr + sk )</td>
+
+    </tr>
+    </tbody>
+</table>
+<p><strong>Questions参数说明（表1-1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>是否必须</th>
+        <th>参数注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>QuestionId</td>
+        <td>是</td>
+        <td>题目标识</td>
+
+    </tr>
+    <tr>
+        <td>AnswerType</td>
+        <td>是</td>
+        <td>选项类型1:单选，2:多选，3:填空，4:简答</td>
+
+    </tr>
+    <tr>
+        <td>AnswerIde</td>
+        <td>是</td>
+        <td>答案标识，2多选可以为空，多选题可以不选，我们程序有一个选项是以上都不是</td>
+
+    </tr>
+    </tbody>
+</table>
+<p><strong>返回值参数（表2）</strong></p>
+<p>正常情况下，我们会返回以下数据：</p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Code</td>
+        <td>Int</td>
+        <td>200:成功，501～510:失败</td>
+
+    </tr>
+    <tr>
+        <td>Message</td>
+        <td>String</td>
+        <td>失败提示信息</td>
+
+    </tr>
+    <tr>
+        <td>Abbr</td>
+        <td>String</td>
+        <td>问诊编号</td>
+
+    </tr>
+    <tr>
+        <td>QuestionEndFlag</td>
+        <td>Int</td>
+        <td>100:题目（详见表2-1），101:结论（详见表2-2），102:护士热线（详见表2-3）</td>
+    </tr>
+
+    </tbody>
+</table>
+<p><strong>QuestionEndFlag = 100：题目（表2-1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Questions</td>
+        <td>List</td>
+        <td>问题列表（详见表2-1-1）</td>
+    </tr>
+
+    </tbody>
+</table>
+<p><strong>Questions（表2-1-1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>QuestionId</td>
+        <td>Int</td>
+        <td>题目标识</td>
+    </tr>
+    <tr>
+        <td>Question</td>
+        <td>String</td>
+        <td>题目内容</td>
+    </tr>
+    <tr>
+        <td>Detail</td>
+        <td>String</td>
+        <td>题目小i内容</td>
+    </tr>
+    <tr>
+        <td>QuestionType</td>
+        <td>Int</td>
+        <td>选项类型1:单选，2:多选，3:填空，4:简答</td>
+    </tr>
+    <tr>
+        <td>Answers</td>
+        <td>List</td>
+        <td>答案列表（表2-1-1-1）</td>
+    </tr>
+    </tbody>
+</table>
+<p><strong>Answers（表2-1-1-1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>answerIde</td>
+        <td>Int</td>
+        <td>答案标识</td>
+    </tr>
+    <tr>
+        <td>Answer</td>
+        <td>String</td>
+        <td>答案内容</td>
+    </tr>
+    <tr>
+        <td>Detail</td>
+        <td>String</td>
+        <td>答案小i内容</td>
+    </tr>
+    </tbody>
+</table>
+<p><strong>QuestionEndFlag = 101：结论（表2-2）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Visit</td>
+        <td>String</td>
+        <td>就诊建议</td>
+    </tr>
+    <tr>
+        <td>Conclusions</td>
+        <td>List</td>
+        <td>结论列表（详见表2-2-1）</td>
+    </tr>
+    <tr>
+        <td>SuggestDepartment</td>
+        <td>String</td>
+        <td>建议就诊科室</td>
+    </tr>
+    </tbody>
+</table>
+<p><strong>ConclusionItems（表2-2-1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Item</td>
+        <td>String</td>
+        <td>注意事项</td>
+    </tr>
+
+    </tbody>
+</table>
+<p><strong>QuestionEndFlag = 102:护士热线自定义展示</strong></p>
+</body>
+</html>

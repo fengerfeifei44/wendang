@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="appModule">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/inner.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/inner.js"></script>
+</head>
+<body>
+<h2>获得症状列表</h2>
+<p><strong>接口调用请求说明</strong></p>
+<pre>
+    <code ng-controller="yumCtrl">
+      https请求方式: POST
+      地址：http://{{name}}/symptom/v1/list.do?access_Token=
+    </code>
+</pre>
+
+
+
+<p><strong>参数说明（表1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>是否必须</th>
+        <th>参数注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Access_Token</td>
+        <td>是</td>
+        <td>调用接口获取的token值</td>
+
+    </tr>
+    <tr>
+        <td>AccessCode</td>
+        <td>是</td>
+        <td>访问码</td>
+
+    </tr>
+    <tr>
+        <td>Key</td>
+        <td>是</td>
+        <td>Md5( accessCode + sk )</td>
+
+    </tr>
+    </tbody>
+</table>
+
+<p><strong>返回值参数（表2）</strong></p>
+<p>正常情况下，我们会返回以下数据：</p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Code</td>
+        <td>Int</td>
+        <td>200:成功，501～510:失败</td>
+
+    </tr>
+    <tr>
+        <td>Message</td>
+        <td>String</td>
+        <td>失败提示信息</td>
+
+    </tr>
+    <tr>
+        <td>AccessId</td>
+        <td>String</td>
+        <td>访问码标识</td>
+
+    </tr>
+    <tr>
+        <td>SymptomList</td>
+        <td>List</td>
+        <td>症状列表（详见表2-1）</td>
+    </tr>
+
+    </tbody>
+</table>
+<p><strong>SymptomList详细（表2-1）</strong></p>
+<table>
+    <thead>
+    <tr>
+        <th>参数名称</th>
+        <th>类型</th>
+        <th>注释</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+
+        <td>SymptomId</td>
+        <td>String</td>
+        <td>症状标识</td>
+    </tr>
+    <tr>
+
+        <td>SymptomName</td>
+        <td>String</td>
+        <td>症状名称</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

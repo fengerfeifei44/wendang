@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文档接口</title>
+    <!--<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">-->
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<nav class="header ">
+    <div class="container">
+        <img src="img/logo-x.png" alt="">
+    </div>
+</nav>
+<div id="content" class="container">
+    <div class="container_hd">惠每医疗接口文档</div>
+    <div class="container_bd clear">
+      <div class="left">
+          <ul>
+              <li><p>开始前必读<i></i></p>
+                  <ol>
+
+                  <li data-url="获取access_token.html"  class="select">获得access_token</li>
+                      <li  data-url="管理access_token.html">管理access_token</li>
+              </ol>
+              </li>
+              <li><p>AMC项目<i></i></p>
+                  <ol>
+                      <li  data-url="public.html">公共部分</li>
+                      <li   data-url="AMC获取症状列表.html">获取症状列表</li>
+                      <li   data-url="AMC开始答题.html">开始答题</li>
+                      <li  data-url="AMC获取题目或者结论.html">获取题目或者结论</li>
+                  </ol>
+              </li>
+
+          </ul>
+      </div>
+        <div class="right">
+            <iframe id="iframe" src="获取access_token.html" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+<div id="bottom">
+    增值电信业务经营许可证 京B2-20170229 京ICP备16039627号
+</div>
+<script src="js/jquery.js"></script>
+<script>
+    $(function () {
+        var iframe=$("iframe");
+        $(".left p").click(function () {
+            $(this).next("ol").slideToggle("fast",function () {
+                if($(this).is(":hidden")){
+                    $(this).prev('p').children("i").addClass("open")
+
+                }else {
+                    $(this).prev('p').children("i").removeClass("open")
+                }
+            })
+
+        });
+        $("#iframe").load(function () {
+            var iframeH = $(this).contents().find("body").height() + 100;
+            $(this).height(iframeH);
+            console.log("a---" + iframeH);
+        });
+        $(".left ol li").click(function () {
+            $(this).addClass("select").siblings("li").removeClass("select").parent('ol').parent('li').siblings('li').find('li').removeClass('select')
+            var path = $(this).data("url");
+              iframe.attr("src", path)
+        });
+    })
+
+
+</script>
+</body>
+</html>
